@@ -1,0 +1,4 @@
+stats/base - change history
+
+== 1.0.0 ==
+ * migrate system/packages/stats to JAL

@@ -1,4 +1,4 @@
-NB. project file: /home/chris/deb/addons/stats/base/base
+NB. project file: e:/deb/addons/stats/base/base
 
 coclass 'jproject'
 
@@ -6,7 +6,6 @@ PRIMARYFILES=: 0 : 0
 ~Addons/stats/base/distribution
 ~Addons/stats/base/multivariate
 ~Addons/stats/base/random
-~Addons/stats/base/regression
 ~Addons/stats/base/sampledesign
 ~Addons/stats/base/univariate
 )
@@ -20,7 +19,11 @@ DEVFILES=: ''
 
 DEVLIBS=: ''
 
-OTHERFILES=: '~Addons/stats/base/base.ijs'
+OTHERFILES=: 0 : 0
+~Addons/stats/base/base.ijs
+~Addons/stats/base/history.txt
+~Addons/stats/base/manifest.ijs
+)
 
 TARGETFILE=: ''
 

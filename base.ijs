@@ -1,8 +1,7 @@
-NB. base
+NB. base stats package
 
-require '~addons/stats/base/random.ijs'
-require '~addons/stats/base/distribution.ijs'
-require '~addons/stats/base/regression.ijs'
-require '~addons/stats/base/sampledesign.ijs'
-require '~addons/stats/base/univariate.ijs'
-require '~addons/stats/base/multivariate.ijs'
+require 'stats/base/random'
+require 'stats/base/distribution'
+require 'stats/base/sampledesign'
+require 'stats/base/univariate'
+require 'stats/base/multivariate'

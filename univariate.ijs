@@ -56,8 +56,8 @@ freqcount=: (\: {:"1)@(~. ,. #/.~)
 
 NB. =========================================================
 NB. histogram
-NB. x is a list of interval start points. 
-NB. y is an array of data. 
+NB. x is a list of interval start points.
+NB. y is an array of data.
 NB. The result is a list of counts of the number of data points in each interval.
 histogram=: <: @ (#/.~) @ (i.@#@[ , I.)
 
