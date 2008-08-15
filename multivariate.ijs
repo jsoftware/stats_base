@@ -7,6 +7,7 @@ NB.*lsfit v        least-squares fit
 NB.*regression v   multiple regression
 
 require '~addons/stats/base/univariate.ijs'
+cocurrent 'z'
 
 spdev=: +/ @ (*~ dev)
 cov=: spdev % <: @ # @ ]

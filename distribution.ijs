@@ -11,6 +11,8 @@ NB.*chisqcdf        v chi squared CDF
 NB.*normalcdf       v normal distribution (0,1) CDF
 NB.*normalprob      v probability of success in normal distribution
 
+cocurrent 'z'
+
 NB. =========================================================
 NB. binomial distribution
 NB. y has 2 elements p,n:

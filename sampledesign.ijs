@@ -6,6 +6,8 @@ NB.*combrev v      comb in revolving door order
 NB.*perm v         permutations of size y
 NB.*steps v        steps from a to b in c steps
 
+cocurrent 'z'
+
 NB. =========================================================
 NB. cile    e.g. 3 cile i.12
 cile=: $@] $ ((* <.@:% #@]) /:@/:@,)

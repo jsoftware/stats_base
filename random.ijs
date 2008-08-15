@@ -59,6 +59,8 @@ NB. 1 2
 NB. 1 1
 NB. 0 2
 
+cocurrent 'z'
+
 setrl=: 9!:1
 
 deal=: (# ? #) : (? #) { ]

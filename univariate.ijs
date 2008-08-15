@@ -21,6 +21,8 @@ NB.*dstat v        descriptive statistics
 NB.*freqcount v    frequency count
 NB.*histogram v    histogram
 
+cocurrent 'z'
+
 mean=: +/ % #
 geomean=: */ %:~ #
 harmean=: mean &.: %

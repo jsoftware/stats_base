@@ -1,4 +1,6 @@
 NB. base stats package
+NB.
+NB. loads complete set of base stats
 
 require 'stats/base/random'
 require 'stats/base/distribution'
