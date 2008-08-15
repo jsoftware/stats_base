@@ -1,0 +1,45 @@
+NB. project file: /home/chris/deb/addons/stats/base/base
+
+coclass 'jproject'
+
+PRIMARYFILES=: 0 : 0
+~Addons/stats/base/distribution
+~Addons/stats/base/multivariate
+~Addons/stats/base/random
+~Addons/stats/base/regression
+~Addons/stats/base/sampledesign
+~Addons/stats/base/univariate
+)
+
+PRIMARYLIBS=: 0 : 0
+guid
+libpath
+)
+
+DEVFILES=: ''
+
+DEVLIBS=: ''
+
+OTHERFILES=: '~Addons/stats/base/base.ijs'
+
+TARGETFILE=: ''
+
+TARGETLOCALE=: ''
+
+TARGETHEADER=: ''
+
+TARGETEXTRA=: ''
+
+BUILDOPTS=: 0 1 0 0 0 0 0
+
+PREBUILDFILE=: ''
+
+POSTBUILDFILE=: ''
+
+TESTFILE=: ''
+
+NOTES=: ''
+
+VERSION=: ''
+
+WINDOWS=: ''
