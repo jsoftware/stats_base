@@ -19,6 +19,7 @@ NB.*max v          maximum
 NB.*midpt v        index of midpoint
 NB.*median v       median
 NB.
+NB. cile v         x cile values of y
 NB. dstat v        descriptive statistics
 NB. freqcount v    frequency count
 NB. histogram v    histogram
@@ -43,6 +44,11 @@ min=: <./
 max=: >./
 midpt=: -:@<:@#
 median=: -:@(+/)@((<. , >.)@midpt { /:~)
+
+NB. =========================================================
+NB.*cile v   x cile values of y
+NB. eg: 3 cile i.12
+cile=: $@] $ ((* <.@:% #@]) /:@/:@,)
 
 NB. =========================================================
 NB.*dstat v descriptive statistics

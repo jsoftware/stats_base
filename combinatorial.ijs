@@ -1,17 +1,11 @@
 NB. sampledesign
 NB.
-NB. cile v         x cile values of y
 NB. comb v         combinations of size x from i.y
 NB. combrev v      comb in revolving door order
 NB. perm v         permutations of size y
 NB. steps v        steps from a to b in c steps
 
 cocurrent 'z'
-
-NB. =========================================================
-NB.*cile v   x cile values of y
-NB. eg: 3 cile i.12
-cile=: $@] $ ((* <.@:% #@]) /:@/:@,)
 
 NB. =========================================================
 NB.*comb v all combinations of size x from i.y
