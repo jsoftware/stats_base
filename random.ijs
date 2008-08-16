@@ -11,14 +11,14 @@ NB.*dealx v       deal x indices from shape y (no repetition)
 NB.*toss v        pick x items from y (with repetition)
 NB.*tossx v       pick x indices from shape y (with repetition)
 NB.
-NB.*betarand        v random numbers in a beta distribution
-NB.*binomialrand    v random numbers 0 and 1 in binomial distribution
-NB.*cauchyrand      v random numbers in a cauchy distribution
-NB.*discreterand    v random numbers in a discrete distribution
-NB.*exponentialrand v random numbers in an exponential distribution
-NB.*gammarand       v random numbers in a gamma distribution
-NB.*normalrand      v random numbers in a standard normal distribution,
-NB.*poissonrand     v random numbers in a poisson distribution
+NB. betarand        v random numbers in a beta distribution
+NB. binomialrand    v random numbers 0 and 1 in binomial distribution
+NB. cauchyrand      v random numbers in a cauchy distribution
+NB. discreterand    v random numbers in a discrete distribution
+NB. exponentialrand v random numbers in an exponential distribution
+NB. gammarand       v random numbers in a gamma distribution
+NB. normalrand      v random numbers in a standard normal distribution,
+NB. poissonrand     v random numbers in a poisson distribution
 NB.
 NB. note: y for deal is data
 NB.       y for dealx is $data
@@ -61,25 +61,24 @@ NB. 0 2
 
 cocurrent 'z'
 
-setrl=: 9!:1
+setrl=: 9!:1                NB. set random link
 
-deal=: (# ? #) : (? #) { ]
-dealx=: ] #: ?~ : ? & (*/)
-toss=: ? @ (# #) { ]
-tossx=: ] #: (?@# */)
-rand01=: ?@$ 0:
-rand11=: <: @: +: @: rand01
+deal=: (# ? #) : (? #) { ]  NB. deal x items from y (no repetition)
+dealx=: ] #: ?~ : ? & (*/)  NB. deal x items from shape y (no repetition)
+toss=: ? @ (# #) { ]        NB. pick x items from y (with replacement)
+tossx=: ] #: (?@# */)       NB. pick x items from shape y (with replacement)
+rand01=: ?@$ 0:             NB. generate y random numbers in interval (0,1)
+rand11=: <: @: +: @: rand01  NB. generate y random numbers in interval (_1,1)
 
 NB. =========================================================
-NB. randomize
+NB. randomize v sets a random value into random link
 randomize=: 3 : 0
 require'guid'
 ([9!:1) _2 (3!:4) , guids 1
 )
 
 NB. =========================================================
-NB. betarand
-NB. random numbers in a beta distribution
+NB.*betarand v random numbers in a beta distribution
 NB. y has 3 elements p,q,n
 NB.   0 = power parameter
 NB.   1 = power parameter
@@ -105,12 +104,11 @@ end.
 )
 
 NB. =========================================================
-NB. random numbers 0 and 1 in a binomial distribution
+NB.*binomialrand v random numbers 0 and 1 in binomial distribution
 NB.
 NB. y has 2 elements:
 NB.  0  =  probability of success in one trial
 NB.  1  =  number of trials
-NB.
 binomialrand=: 3 : 0
 'p n'=. y
 r=. 2147483647
@@ -119,7 +117,7 @@ s>?n#<:r
 )
 
 NB. =========================================================
-NB. random numbers in a cauchy distribution
+NB.*cauchyrand v random numbers in a cauchy distribution
 NB. with F(x)=0.5+(arctan x)%o.1
 NB.
 NB. y  =  number of trials
@@ -128,8 +126,7 @@ cauchyrand=: 3 : 0
 )
 
 NB. =========================================================
-NB. random numbers in a discrete distribution
-NB.
+NB.*discreterand v random numbers in a discrete distribution
 NB. y has two elements
 NB.   0 =  2-row matrix: 0 =  discrete values
 NB.                      1 =  corresponding probabilities
@@ -146,7 +143,7 @@ v {~ <:l}.r
 )
 
 NB. =========================================================
-NB. random numbers in an exponential distribution
+NB.*exponentialrand v random numbers in an exponential distribution
 NB. with mean=1. F(x)=1-^-x
 NB.
 NB. y  =  number of trials
@@ -155,8 +152,7 @@ exponentialrand=: 3 : 0
 )
 
 NB. =========================================================
-NB. gammarand
-NB. random numbers in a gamma distribution
+NB.*gammarand v random numbers in a gamma distribution
 NB. y has 2 elements p,n
 NB.   0 = power parameter
 NB.   1 = number of trials
@@ -176,7 +172,7 @@ end.
 )
 
 NB. =========================================================
-NB. random numbers in a standard normal distribution,
+NB.*normalrand v random numbers in a standard normal distribution,
 NB. with  mean=0, standard deviation=1.
 NB. y  = number of trials.
 normalrand=: 3 : 0
@@ -184,7 +180,7 @@ normalrand=: 3 : 0
 )
 
 NB. =========================================================
-NB. random numbers in a poisson distribution
+NB.*poissonrand v random numbers in a poisson distribution
 NB.
 NB. y has 2 elements:
 NB.   0  = mean of distribution (=variance)

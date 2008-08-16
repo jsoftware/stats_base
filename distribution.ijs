@@ -1,20 +1,20 @@
 NB. distribution - statistical distributions
 NB.
 NB. discrete:
-NB.*binomialdist    v discrete values for binomial distribution
-NB.*binomialprob    v probability of success in binomial distribution
-NB.*poissondist     v discrete values for poisson distribution
-NB.*poissonprob     v probability of success in poisson distribution
+NB. binomialdist v  discrete values for binomial distribution
+NB. binomialprob v  probability of success in binomial distribution
+NB. poissondist v   discrete values for poisson distribution
+NB. poissonprob v   probability of success in poisson distribution
 NB.
 NB. continuous:
-NB.*chisqcdf        v chi squared CDF
-NB.*normalcdf       v normal distribution (0,1) CDF
-NB.*normalprob      v probability of success in normal distribution
+NB. chisqcdf v      chi squared CDF
+NB. normalcdf v     normal distribution (0,1) CDF
+NB. normalprob v    probability of success in normal distribution
 
 cocurrent 'z'
 
 NB. =========================================================
-NB. binomial distribution
+NB.*binomialdist v discrete values for binomial distribution
 NB. y has 2 elements p,n:
 NB.  0  =  probability of success in one trial
 NB.  1  =  number of trials
@@ -32,7 +32,7 @@ if. b do. |. r end.
 )
 
 NB. =========================================================
-NB. probability of successes in binomial distribution
+NB.*binomialprob v probability of success in binomial distribution
 NB. y has 3 or 4 elements:
 NB.   0  =  probability of success in one trial
 NB.   1  =  number of trials
@@ -48,6 +48,7 @@ m=. >:3{y,n
 )
 
 NB. =========================================================
+NB.*chisqcdf v  chi squared CDF
 NB. chi squared cumulative distribution function
 NB. see wiki Essays/Chi_Squared_CDF
 gamma=. ! & <:
@@ -56,6 +57,7 @@ incgam=. ig0 % gamma@[  NB. incomplete gamma
 chisqcdf=: incgam&-: f.
 
 NB. =========================================================
+NB.*normalcdf  v normal distribution (0,1) CDF
 NB. normal(0,1) cumulative distribution function
 NB. see wiki Essays/Normal_CDF
 NB.
@@ -66,8 +68,7 @@ erf=. (1 H. 1.5)@*: * 2p_0.5&* % ^@:*:
 normalcdf=: -: @ >: @ erf @ %&(%:2) f.
 
 NB. =========================================================
-NB. probabilities of normal distribution
-NB.
+NB.*normalprob v probability of success in normal distribution
 NB. y has 3 or 4 elements:
 NB.   0  =  mean of distribution
 NB.   1  =  standard deviation
@@ -93,8 +94,7 @@ r=. -/|(sgn=_1)-r
 )
 
 NB. =========================================================
-NB. discrete values for poisson distribution
-NB.
+NB.*poissondist v discrete values for poisson distribution
 NB. y has 2 elements:
 NB.   0 = mean of distribution
 NB.   1 = maximum value to show
@@ -108,8 +108,7 @@ poissondist=: 3 : 0
 )
 
 NB. =========================================================
-NB. probability of successes in poisson distribution
-NB.
+NB.*poissonprob v probability of success in poisson distribution
 NB. y has 2 or 3 elements:
 NB.  0   =  mean of distribution
 NB.  1   =  minimum number of successes
@@ -128,4 +127,3 @@ b=. 1=#s
 if. 0>y do. 1 return. end.
 |b-(^-m)*+/x}.*/\1,m%}.i.>:y
 )
-

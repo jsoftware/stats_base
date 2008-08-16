@@ -1,24 +1,25 @@
 NB. multivariate
 NB.
 NB.*spdev v        sum of products of deviations
-NB.*cov v          covariance
+NB.*cov v          (co)variance
+NB.*covp v         population (co)variance
 NB.*corr v         correlation
-NB.*lsfit v        least-squares fit
-NB.*regression v   multiple regression
+NB. lsfit v        least-squares fit
+NB. regression v   multiple regression
 
 require '~addons/stats/base/univariate.ijs'
 cocurrent 'z'
 
-spdev=: +/ @ (*~ dev)
-cov=: spdev % <: @ # @ ]
-corr=: cov % * & stddev
+spdev=: +/ @ (*~ dev)     NB. sum of products of deviations
+cov=: spdev % <: @ # @ ]  NB. (co)variance
+corr=: cov % * & stddev   NB. correlation
 
 NB. "p" suffix = population definitions
-covp=: spdev % # @ ]
+covp=: spdev % # @ ]      NB. population (co)variance
 
 NB. =========================================================
-NB. lsfit
-NB. n lsfit xy
+NB.*lsfit v least-squares fit
+NB. form: n lsfit xy
 NB. coefficients of polynomial fitting data points
 NB. using least squares approximation.
 NB. xy = 2 row matrix of x ,: y
@@ -26,13 +27,13 @@ NB. n  = order of polynomial
 lsfit=: {:@] %. {.@] ^/ i.@>:@[
 
 NB. =========================================================
-NB. regression
-NB. syntax:  independent regression dependent
+NB.*regression v multiple regression
+NB. form:  independent regression dependent
 NB.    dependent = vector of n observations (Y value)
 NB.  independent = n by p matrix of n observations for p independent
 NB.                variables (X value)
 NB.
-NB. returns formatted values
+NB. returns: formatted values
 regression=: 4 : 0
 v=. 1,.x
 d=. y

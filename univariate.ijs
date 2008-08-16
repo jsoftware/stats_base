@@ -3,12 +3,14 @@ NB. univariate
 NB.*mean v         arithmetic mean
 NB.*geomean v      geometric mean
 NB.*harmean v      harmonic mean
-NB.*commonmean     common mean
+NB.*commonmean v   common mean
 NB.
 NB.*dev v          deviation from mean
-NB.*ssdev v        sum squares of deviation
-NB.*var v          variance
+NB.*ssdev v        sum of squared deviations
+NB.*var v          sample variance
 NB.*stddev v       standard deviation
+NB.*varp v         population variance
+NB.*stddevp v      population standard deviation
 NB.*skewness v     skewness
 NB.*kurtosis v     kurtosis
 NB.
@@ -17,25 +19,25 @@ NB.*max v          maximum
 NB.*midpt v        index of midpoint
 NB.*median v       median
 NB.
-NB.*dstat v        descriptive statistics
-NB.*freqcount v    frequency count
-NB.*histogram v    histogram
+NB. dstat v        descriptive statistics
+NB. freqcount v    frequency count
+NB. histogram v    histogram
 
 cocurrent 'z'
 
-mean=: +/ % #
-geomean=: */ %:~ #
-harmean=: mean &.: %
+mean=: +/ % #                   NB. arithmetic mean
+geomean=: */ %:~ #              NB. geometric mean
+harmean=: mean &.: %            NB. harmonic mean
 commonmean=: [: {. (%:@*/ , -:@+/) ^: _
 
-dev=: -"_1 _ mean
-ssdev=: +/ @: *: @ dev
-var=: ssdev % <:@#
-stddev=: %: @ var
+dev=: -"_1 _ mean         NB. deviation from mean
+ssdev=: +/ @: *: @ dev    NB. sum of squared deviations
+var=: ssdev % <:@#        NB. sample variance
+stddev=: %: @ var         NB. sample standard deviation
 
 NB. "p" suffix = population definitions
-varp=: ssdev % #
-stddevp=: %: @ varp
+varp=: ssdev % #         NB. population variance
+stddevp=: %: @ varp      NB. population standard deviation
 
 min=: <./
 max=: >./
@@ -43,7 +45,8 @@ midpt=: -:@<:@#
 median=: -:@(+/)@((<. , >.)@midpt { /:~)
 
 NB. =========================================================
-NB. descriptive statistics
+NB.*dstat v descriptive statistics
+NB. table of formatted descriptive statistics
 dstat=: 3 : 0
 t=. '/sample size/minimum/maximum/median/mean'
 t=. t,'/std devn/skewness/kurtosis'
@@ -53,20 +56,21 @@ t,. ": ,. v y
 )
 
 NB. =========================================================
-NB. frequency count (value, frequency) sorted by decreasing frequency
+NB.*freqcount v  frequency count 
+NB. (value, frequency) sorted by decreasing frequency
 freqcount=: (\: {:"1)@(~. ,. #/.~)
 
 NB. =========================================================
-NB. histogram
+NB.*histogram v histogram
 NB. x is a list of interval start points.
 NB. y is an array of data.
 NB. The result is a list of counts of the number of data points in each interval.
 histogram=: <: @ (#/.~) @ (i.@#@[ , I.)
 
 NB. =========================================================
-NB. kurtosis = 4th moment coefficient
+NB.*kurtosis v  4th moment coefficient
 kurtosis=: # * +/@(^&4)@dev % *:@ssdev
 
 NB. =========================================================
-NB. skewness = 3rd moment coefficient
+NB.*skewness v  3rd moment coefficient
 skewness=: %:@# * +/@(^&3)@dev % ^&1.5@ssdev
