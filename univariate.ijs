@@ -62,7 +62,7 @@ t,. ": ,. v y
 )
 
 NB. =========================================================
-NB.*freqcount v  frequency count 
+NB.*freqcount v  frequency count
 NB. (value, frequency) sorted by decreasing frequency
 freqcount=: (\: {:"1)@(~. ,. #/.~)
 
