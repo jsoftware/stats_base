@@ -10,7 +10,7 @@ Migrated from system/packages/stats.
 
 VERSION=: '1.0.2'
 
-RELEASE=: 'j602'
+RELEASE=: 'j602 701'
 
 FILES=: 0 : 0
 base.ijs
