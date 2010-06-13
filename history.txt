@@ -1,5 +1,8 @@
 stats/base - change history
 
+== 1.0.3 ==
+ * chg: update to j701
+ 
 == 1.0.2 ==
  * improve scriptdoc documentation
  * rename sampledesign to combinatorial

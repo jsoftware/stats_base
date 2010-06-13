@@ -1,5 +1,5 @@
-NB. sampledesign
-NB.
+NB. cominatorial - combinations and permutations
+
 NB. comb v         combinations of size x from i.y
 NB. combrev v      comb in revolving door order
 NB. perm v         permutations of size y

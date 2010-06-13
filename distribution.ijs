@@ -1,5 +1,5 @@
 NB. distribution - statistical distributions
-NB.
+
 NB. discrete:
 NB. binomialdist v  discrete values for binomial distribution
 NB. binomialprob v  probability of success in binomial distribution
