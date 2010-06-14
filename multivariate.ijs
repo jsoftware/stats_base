@@ -1,4 +1,5 @@
-NB. multivariate - multivariate statistics
+NB. stats/base/multivariate
+NB. Multivariate statistics
 
 NB.*spdev v        sum of products of deviations
 NB.*cov v          (co)variance

@@ -1,4 +1,5 @@
-NB. univariate - univariate statistics
+NB. stats/base/univariate
+NB. Univariate statistics
 
 NB.*mean v         arithmetic mean
 NB.*geomean v      geometric mean

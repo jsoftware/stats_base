@@ -1,4 +1,5 @@
-NB. random - random number generation
+NB. stats/base/random
+NB. Random number generation
 
 NB.*setrl v       set random link
 NB.

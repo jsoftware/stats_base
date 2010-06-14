@@ -1,4 +1,5 @@
-NB. distribution - statistical distributions
+NB. stats/base/distribution
+NB. Statistical distributions
 
 NB. discrete:
 NB. binomialdist v  discrete values for binomial distribution
