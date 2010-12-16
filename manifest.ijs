@@ -8,7 +8,7 @@ Basic statistics package.
 Migrated from system/packages/stats.
 )
 
-VERSION=: '1.0.3'
+VERSION=: '1.0.4'
 
 RELEASE=: 'j602 j701'
 
