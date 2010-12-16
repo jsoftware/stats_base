@@ -8,12 +8,13 @@ Basic statistics package.
 Migrated from system/packages/stats.
 )
 
-VERSION=: '1.0.4'
+VERSION=: '1.0.5'
 
 RELEASE=: 'j602 j701'
 
 FILES=: 0 : 0
 base.ijs
+combinatorial.ijs
 distribution.ijs
 multivariate.ijs
 random.ijs
