@@ -74,8 +74,13 @@ rand11=: <: @: +: @: rand01  NB. generate y random numbers in interval (_1,1)
 NB. =========================================================
 NB. randomize v sets a random value into random link
 randomize=: 3 : 0
-require 'guid'
-([9!:1) _2 (3!:4) , guids 1
+ try.
+   require 'guid'
+   tmp=. _2 (3!:4) , guids 1
+ catch.             NB. general/misc/guid.ijs not available
+   tmp=. >:<.0.8*0 60 60 24 31#.0 0 0 0 _1+|.<.}.6!:0 ''
+ end.
+ ([ 9!:1) tmp       NB. set random initial random seed
 )
 
 NB. =========================================================

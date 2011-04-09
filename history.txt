@@ -1,6 +1,9 @@
 stats/base - change history
 
 == 1.0.4/5 ==
+ * chg: standardize randomize verb
+
+== 1.0.4/5 ==
  * fix: base to include combinatorial
 
 == 1.0.3 ==
