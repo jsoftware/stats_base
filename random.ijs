@@ -80,7 +80,7 @@ randomize=: 3 : 0
  catch.             NB. general/misc/guid.ijs not available
    tmp=. >:<.0.8*0 60 60 24 31#.0 0 0 0 _1+|.<.}.6!:0 ''
  end.
- ([ 9!:1) tmp       NB. set random initial random seed
+ ([ 9!:1) {.^:(2~:9!:42'') tmp    NB. set random initial random seed
 )
 
 NB. =========================================================

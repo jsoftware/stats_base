@@ -1,6 +1,6 @@
 stats/base - change history
 
-== 1.0.4/5 ==
+== 1.0.4/6 ==
  * chg: standardize randomize verb
 
 == 1.0.4/5 ==
