@@ -72,7 +72,7 @@ rand01=: ?@$ 0:             NB. generate y random numbers in interval (0,1)
 rand11=: <: @: +: @: rand01  NB. generate y random numbers in interval (_1,1)
 
 NB. =========================================================
-NB. randomize v sets a random value into random link
+NB.*randomize v sets a random value into random link
 randomize=: 3 : 0
  try.
    require 'guid'
