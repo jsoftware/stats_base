@@ -10,10 +10,7 @@ PRIMARYFILES=: 0 : 0
 ~Addons/stats/base/univariate
 )
 
-PRIMARYLIBS=: 0 : 0
-guid
-libpath
-)
+PRIMARYLIBS=: 'guid'
 
 DEVFILES=: ''
 
