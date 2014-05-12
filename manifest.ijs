@@ -21,3 +21,4 @@ random.ijs
 sampledesign.ijs
 univariate.ijs
 )
+PLATFORMS=: 'linux win darwin android'
