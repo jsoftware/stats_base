@@ -27,7 +27,7 @@ NB.  if y is a numeric matrix, the variance/covariance matrix of the columns is 
 NB. Dyadic use:
 NB.  if x and y are numeric lists then the covariance of the 2 lists is returned
 NB.  if x and y are compatible matrices, the variance/covariance matrix of their columns is returned
-cov=: spdev % <:@#@]     NB. (co)variance
+cov=: spdev % <:@#@]
 
 NB. =========================================================
 NB.*corr v Correlation or correlation matrix
@@ -37,7 +37,7 @@ corr=: cov % */~&stddev
 
 diag=: (<0 1)&|:          NB. return matrix diagonal 
 cov2cor=: % */~@:%:@diag  NB. convert var/cov matrix to correlation matrix
-corrm=: cov2cor@cov@]     NB. faster and more numerically exact than corr but only works for monadic, matrix arg
+corrm=: cov2cor@cov@]     NB. faster and more numerically exact than corr but only for monadic, matrix arg
 
 
 NB. "p" suffix = population definitions
