@@ -1,22 +1,47 @@
 NB. stats/base/multivariate
 NB. Multivariate statistics
 
-NB.*spdev v        sum of products of deviations
-NB.*cov v          (co)variance
-NB.*covp v         population (co)variance
-NB.*corr v         correlation
+NB.*spdev v        sum of cross products of deviations
+NB. cov v          (co)variance or var/cov matrix
+NB.*covp v         population (co)variance or var/cov matrix
+NB. corr v         correlation or correlation matrix
+NB.*cov2cor v      convert var/cov matrix to correlation matrix
+NB. corrm v        correlation matrix
 NB. lsfit v        least-squares fit
 NB. regression v   multiple regression
 
 require '~addons/stats/base/univariate.ijs'
 cocurrent 'z'
 
-spdev=: +/ @ (*~ dev)     NB. sum of products of deviations
-cov=: spdev % <: @ # @ ]  NB. (co)variance
-corr=: cov % * & stddev   NB. correlation
+XtY=: +/ .*~ |:           NB. sum of cross products (monadic is XtX)
+spdev=: XtY&dev           NB. sum of cross products of deviations
+
+NB. =========================================================
+NB.*cov v Covariance or variance/covariance matrix
+NB. form: [x] cov y
+NB. y is: numeric list or matrix
+NB. x is: numeric list or matrix
+NB. Monadic use:
+NB.  if y is a numeric list, the variance of the list is returned.
+NB.  if y is a numeric matrix, the variance/covariance matrix of the columns is returned
+NB. Dyadic use:
+NB.  if x and y are numeric lists then the covariance of the 2 lists is returned
+NB.  if x and y are compatible matrices, the variance/covariance matrix of their columns is returned
+cov=: spdev % <:@#@]     NB. (co)variance
+
+NB. =========================================================
+NB.*corr v Correlation or correlation matrix
+NB. form: [x] corr y
+NB. Arguments as per cov, but returns correlations or correlation matrix
+corr=: cov % */~&stddev
+
+diag=: (<0 1)&|:          NB. return matrix diagonal 
+cov2cor=: % */~@:%:@diag  NB. convert var/cov matrix to correlation matrix
+corrm=: cov2cor@cov@]     NB. faster and more numerically exact than corr but only works for monadic, matrix arg
+
 
 NB. "p" suffix = population definitions
-covp=: spdev % # @ ]      NB. population (co)variance
+covp=: spdev % #@]       NB. population (co)variance
 
 NB. =========================================================
 NB.*lsfit v least-squares fit
