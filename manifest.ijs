@@ -20,6 +20,5 @@ combinatorial.ijs
 distribution.ijs
 multivariate.ijs
 random.ijs
-sampledesign.ijs
 univariate.ijs
 )

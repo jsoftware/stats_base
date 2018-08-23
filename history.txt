@@ -1,5 +1,11 @@
 stats/base - change history
 
+== 1.0.17 ==
+* add: comb and perm with repetition
+
+== 1.0.15 ==
+* chg: update covariance/correlation
+
 == 1.0.9 ==
  * chg: update to j801
 
