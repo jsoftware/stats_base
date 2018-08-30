@@ -2,6 +2,8 @@ stats/base - change history
 
 == 1.0.17 ==
 * add: combinations and permutations with repetition
+* chg: dyadic permutations are meaningful
+* chg: monadic combinations no longer a domain error
 
 == 1.0.15 ==
 * chg: update covariance/correlation
