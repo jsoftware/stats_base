@@ -46,6 +46,28 @@ max=: >./
 midpt=: -:@<:@#
 median=: -:@(+/)@((<. , >.)@midpt { /:~)
 
+NB.*rankOrdinal a return the ordinal ranking ("0123") of array y
+NB. tied items are ranked on the order they appear in y
+NB. eg: /: rankOrdinal 5 2 5 0 6 2 4  NB. rank ascending
+NB. eg: \: rankOrdinal 5 2 5 0 6 2 4  NB. rank descending
+rankOrdinal=: 1 :'/:@u'
+
+NB.*rankCompete a return the standard competition ranking ("0013") of array y
+NB. eg: /: rankCompete 5 2 5 0 6 2 4  NB. rank ascending
+NB. eg: \: rankCompete 5 2 5 0 6 2 4  NB. rank descending
+rankCompete=: 1 :'u~ i. ]'
+
+NB.*rankDense a return the dense ranking ("0012") of array y
+NB. eg: /: rankDense 5 2 5 0 6 2 4  NB. rank ascending
+NB. eg: \: rankDense 5 2 5 0 6 2 4  NB. rank descending
+rankDense=: 1 :'u rankOrdinal@~. {~ ~. i. ]'
+
+NB.*rankFractional a return the dense ranking ("0 1.5 1.5 3") of array y
+NB. Items with the same ranking have the mean of their ordinal ranks.
+NB. eg: /: rankFractional 5 2 5 0 6 2 4  NB. rank ascending
+NB. eg: \: rankFractional 5 2 5 0 6 2 4  NB. rank descending
+rankFractional=: 1 : '(] (+/ % #)/. u rankOrdinal) {~ ~. i. ]'
+
 NB. =========================================================
 NB.*cile v   x cile values of y
 NB. eg: 3 cile i.12

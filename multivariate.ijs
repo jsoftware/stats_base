@@ -46,6 +46,13 @@ NB. Although dyadic form also works for modadic matrix arguments, it is not as n
 corr=: cov2cor@cov : (cov % */~&stddev)
 
 NB. =========================================================
+NB.*rankcorr v Spearman rank correlation or correlation matrix
+NB. form: [x] rankcorr y
+NB. Arguments as per cov, but returns correlations or correlation matrix
+NB. Although dyadic form also works for modadic matrix arguments, it is not as numerically exact
+rankcorr=: corr&(/: rankFractional"1&.|:)
+
+NB. =========================================================
 NB.*lsfit v least-squares fit
 NB. form: n lsfit xy
 NB. coefficients of polynomial fitting data points
