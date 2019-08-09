@@ -5,11 +5,11 @@ NB.*XtY            sum of cross products (monadic is XtX)
 NB.*spdev v        sum of cross products of deviations
 NB. cov v          (co)variance or var/cov matrix
 NB.*covp v         population (co)variance or var/cov matrix
-NB. 
+NB.
 NB.*diag v         returns the matrix diagonal
 NB.*cov2cor v      convert var/cov matrix to correlation matrix
 NB. corr v         correlation or correlation matrix
-NB. 
+NB.
 NB. lsfit v        least-squares fit
 NB. regression v   multiple regression
 
@@ -35,7 +35,7 @@ cov=: spdev % <:@#@]
 NB. "p" suffix = population definitions
 covp=: spdev % #@]       NB. population (co)variance or var/cov matrix
 
-diag=: (<0 1)&|:          NB. returns matrix diagonal 
+diag=: (<0 1)&|:          NB. returns matrix diagonal
 cov2cor=: % */~@:%:@diag  NB. convert var/cov matrix to correlation matrix
 
 NB. =========================================================
