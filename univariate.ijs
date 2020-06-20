@@ -28,7 +28,7 @@ NB. histogram v    histogram
 cocurrent 'z'
 
 mean=: +/ % #                   NB. arithmetic mean
-geomean=: */ %:~ #              NB. geometric mean
+geomean=: mean &.: ^.           NB. geometric mean
 harmean=: mean &.: %            NB. harmonic mean
 commonmean=: [: {. (%:@*/ , -:@+/) ^: _
 
