@@ -46,23 +46,23 @@ max=: >./
 midpt=: -:@<:@#
 median=: -:@(+/)@((<. , >.)@midpt { /:~)
 
-NB.*rankOrdinal a return the ordinal ranking ("0123") of array y
+NB.*rankOrdinal a  ordinal ranking ("0 1 2 3") of array y
 NB. tied items are ranked on the order they appear in y
 NB. eg: /: rankOrdinal 5 2 5 0 6 2 4  NB. rank ascending
 NB. eg: \: rankOrdinal 5 2 5 0 6 2 4  NB. rank descending
 rankOrdinal=: 1 :'/:@u'
 
-NB.*rankCompete a return the standard competition ranking ("0013") of array y
+NB.*rankCompete a  standard competition ranking ("0 0 2 3") of array y
 NB. eg: /: rankCompete 5 2 5 0 6 2 4  NB. rank ascending
 NB. eg: \: rankCompete 5 2 5 0 6 2 4  NB. rank descending
 rankCompete=: 1 :'u~ i. ]'
 
-NB.*rankDense a return the dense ranking ("0012") of array y
+NB.*rankDense a  dense ranking ("0012") of array y
 NB. eg: /: rankDense 5 2 5 0 6 2 4  NB. rank ascending
 NB. eg: \: rankDense 5 2 5 0 6 2 4  NB. rank descending
 rankDense=: 1 :'u rankOrdinal@~. {~ ~. i. ]'
 
-NB.*rankFractional a return the dense ranking ("0 1.5 1.5 3") of array y
+NB.*rankFractional a  fractional ranking ("0 1.5 1.5 3") of array y
 NB. Items with the same ranking have the mean of their ordinal ranks.
 NB. eg: /: rankFractional 5 2 5 0 6 2 4  NB. rank ascending
 NB. eg: \: rankFractional 5 2 5 0 6 2 4  NB. rank descending
@@ -74,7 +74,7 @@ NB. eg: 3 cile i.12
 cile=: $@] $ ((* <.@:% #@]) /:@/:@,)
 
 NB. =========================================================
-NB.*dstat v descriptive statistics
+NB.*dstat v  descriptive statistics
 NB. table of formatted descriptive statistics
 dstat=: 3 : 0
 t=. '/sample size/minimum/maximum/median/mean'
@@ -90,7 +90,7 @@ NB. (value, frequency) sorted by decreasing frequency
 freqcount=: (\: {:"1)@(~. ,. #/.~)
 
 NB. =========================================================
-NB.*histogram v histogram
+NB.*histogram v  histogram
 NB. x is a list of interval start points.
 NB. y is an array of data.
 NB. The result is a list of counts of the number of data points in each interval.
