@@ -1,5 +1,10 @@
 stats/base - change history
 
+== 1.0.18 ==
+* chg: rankcorr calculated on items with rank of _1
+* fix: improve numerical stability of geometric mean
+* fix: documentation fixes
+
 == 1.0.17 ==
 * add: combinations and permutations with repetition
 * chg: dyadic permutations are meaningful
