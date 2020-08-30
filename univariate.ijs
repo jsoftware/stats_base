@@ -32,7 +32,9 @@ geomean=: mean &.: ^.           NB. geometric mean
 harmean=: mean &.: %            NB. harmonic mean
 commonmean=: [: {. (%:@*/ , -:@+/) ^: _
 
-dev=: -"_1 _ mean         NB. deviation from mean
+dev1=: - mean
+devn=: -"_1 _ mean
+dev=: dev1`devn@.(1<#@$)  NB. deviation from mean
 ssdev=: +/ @: *: @ dev    NB. sum of squared deviations
 var=: ssdev % <:@#        NB. sample variance
 stddev=: %: @ var         NB. sample standard deviation
