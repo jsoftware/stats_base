@@ -32,12 +32,10 @@ geomean=: mean &.: ^.           NB. geometric mean
 harmean=: mean &.: %            NB. harmonic mean
 commonmean=: [: {. (%:@*/ , -:@+/) ^: _
 
-dev1=: - mean
-devn=: -"_1 _ mean
-dev=: dev1`devn@.(1<#@$)  NB. deviation from mean
-ssdev=: +/ @: *: @ dev    NB. sum of squared deviations
-var=: ssdev % <:@#        NB. sample variance
-stddev=: %: @ var         NB. sample standard deviation
+dev=: (- mean)`(-"_1 _ mean)@.(1<#@$)  NB. deviation from mean
+ssdev=: +/ @: *: @ dev                 NB. sum of squared deviations
+var=: ssdev % <:@#                     NB. sample variance
+stddev=: %: @ var                      NB. sample standard deviation
 
 NB. "p" suffix = population definitions
 varp=: ssdev % #         NB. population variance
