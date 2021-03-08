@@ -1,15 +1,15 @@
 NB. stats/base/univariate
 NB. Univariate statistics
 
-NB.*mean v         arithmetic mean
+NB.*mean v         arithmetic mean (dyadic: weighted)
 NB.*geomean v      geometric mean
 NB.*harmean v      harmonic mean
 NB.*commonmean v   common mean
 NB.
-NB.*dev v          deviation from mean
-NB.*ssdev v        sum of squared deviations
-NB.*var v          sample variance
-NB.*stddev v       standard deviation
+NB.*dev v          deviation from mean (dyadic: weighted)
+NB.*ssdev v        sum of squared deviations (dyadic: weighted)
+NB.*var v          sample variance (dyadic: weighted)
+NB.*stddev v       standard deviation (dyadic: weighted)
 NB.*varp v         population variance
 NB.*stddevp v      population standard deviation
 NB.*skewness v     skewness
@@ -27,19 +27,25 @@ NB. histogram v    histogram
 
 cocurrent 'z'
 
-mean=: +/ % #                   NB. arithmetic mean
-geomean=: mean &.: ^.           NB. geometric mean
-harmean=: mean &.: %            NB. harmonic mean
+mean=: (+/ % #) : wmean        NB. arithmetic mean (dyadic: weighted)
+geomean=: mean &.: ^.          NB. geometric mean
+harmean=: mean &.: %           NB. harmonic mean
 commonmean=: [: {. (%:@*/ , -:@+/) ^: _
 
-dev=: -"_1 _ mean         NB. deviation from mean
-ssdev=: +/ @: *: @ dev    NB. sum of squared deviations
-var=: ssdev % <:@#        NB. sample variance
-stddev=: %: @ var         NB. sample standard deviation
+wmean=: +/@[ %~ +/@:*          NB. weighted arithmetic mean
+wdev=: ] -"_1 _ wmean          NB. weighted deviation from mean
+wssdev=: [ +/@:* *:@wdev       NB. weighted sum of squared deviations
+wvar=: (#@-.&0 %~ <:@#@-.&0 * +/)@[ %~ wssdev  NB. weighted sample variance
+wstddev=: %:@wvar              NB. weighted sample standard deviation
+
+dev=: (-"_1 _ mean) : wdev     NB. deviation from mean (dyadic: weighted)
+ssdev=: (+/@:*:@dev) : wssdev  NB. sum of squared deviations (dyadic: weighted)
+var=: (ssdev % <:@#) : wvar    NB. sample variance (dyadic: weighted)
+stddev=: (%:@var) : wstddev    NB. sample standard deviation (dyadic: weighted)
 
 NB. "p" suffix = population definitions
-varp=: ssdev % #         NB. population variance
-stddevp=: %: @ varp      NB. population standard deviation
+varp=: ssdev % #               NB. population variance
+stddevp=: %: @ varp            NB. population standard deviation
 
 min=: <./
 max=: >./
@@ -57,7 +63,7 @@ NB. eg: /: rankCompete 5 2 5 0 6 2 4  NB. rank ascending
 NB. eg: \: rankCompete 5 2 5 0 6 2 4  NB. rank descending
 rankCompete=: 1 :'u~ i. ]'
 
-NB.*rankDense a  dense ranking ("0012") of array y
+NB.*rankDense a  dense ranking ("0 0 1 2") of array y
 NB. eg: /: rankDense 5 2 5 0 6 2 4  NB. rank ascending
 NB. eg: \: rankDense 5 2 5 0 6 2 4  NB. rank descending
 rankDense=: 1 :'u rankOrdinal@~. {~ ~. i. ]'
