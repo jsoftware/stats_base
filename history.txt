@@ -1,5 +1,8 @@
 stats/base - change history
 
+== 1.0.19 ==
+* add: Add weighted versions of mean, dev, stddev, var
+
 == 1.0.18 ==
 * chg: rankcorr calculated on items with rank of _1
 * fix: improve numerical stability of geometric mean
