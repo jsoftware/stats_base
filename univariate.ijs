@@ -96,14 +96,6 @@ NB.*freqcount v  frequency count
 NB. (value, frequency) sorted by decreasing frequency
 freqcount=: (\: {:"1)@(~. ,. #/.~)
 
-NB. =========================================================
-NB.*histogram v  histogram (original)
-NB. x is a list of interval start/end points. The number of intervals is 1+#x
-NB. y is an array of data.
-NB. The result is a list of counts of the number of data points in each interval.
-NB. The number of points in the last interval is undercounted by 1
-histogram0=: <: @ (#/.~) @ (i.@#@[ , I.)
-
 NB.*Idotr v  Equivalent to I. but intervals are closed on the left and open on the right
 NB. Idotr : (0{x) <= y < (1{x)
 NB.    I. : (0{x) < y <= (1{x)
