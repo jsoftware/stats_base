@@ -24,6 +24,7 @@ NB. cile v         x cile values of y
 NB. dstat v        descriptive statistics
 NB. freqcount v    frequency count
 NB. histogram v    histogram
+NB. binnedData a   applies u to binned data y as specified by intervals x
 
 cocurrent 'z'
 
@@ -96,11 +97,35 @@ NB. (value, frequency) sorted by decreasing frequency
 freqcount=: (\: {:"1)@(~. ,. #/.~)
 
 NB. =========================================================
-NB.*histogram v  histogram
-NB. x is a list of interval start points.
+NB.*histogram v  histogram (original)
+NB. x is a list of interval start/end points. The number of intervals is 1+#x
 NB. y is an array of data.
 NB. The result is a list of counts of the number of data points in each interval.
-histogram=: <: @ (#/.~) @ (i.@#@[ , I.)
+NB. The number of points in the last interval is undercounted by 1
+histogram0=: <: @ (#/.~) @ (i.@#@[ , I.)
+
+NB.*Idotr v  Equivalent to I. but intervals are closed on the left and open on the right
+NB. Idotr : (0{x) <= y < (1{x)
+NB.    I. : (0{x) < y <= (1{x)
+Idotr=: |.@[ (#@[ - I.) ]
+
+NB.*histogram v  tally of the items in each bin
+NB. x is a list of interval start/end points. The number of intervals is 1+#x
+NB. y is an array of data
+histogramR=: <: @ (#/.~) @ (i.@>:@#@[ , I.)      NB. Intervals (,]
+histogramL=: <: @ (#/.~) @ (i.@>:@#@[ , Idotr)   NB. Intervals [,)
+histogram=: histogramL f.
+
+NB. =========================================================
+NB.*binnedData a  Applies verb u to the values of y after binning them in the intervals specified by x
+NB. x is a list of interval start/end points. The number of intervals is 1+#x
+NB. y is an array of data.
+NB. eg: < binnedData  NB. verb to box the binned data
+NB. eg: (+/ % #) binnedData  NB. verb to average the binned data
+binnedData=: adverb define
+  bidx=. i.@>:@# x                    NB. indicies of bins
+  x (Idotr (u@}./.)&(bidx&,) ]) y     NB. apply u to data in bins after dropping first value
+)
 
 NB. =========================================================
 NB.*kurtosis v  4th moment coefficient
