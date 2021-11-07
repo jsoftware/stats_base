@@ -76,7 +76,7 @@ NB. eg: \: rankFractional 5 2 5 0 6 2 4  NB. rank descending
 rankFractional=: 1 : '(] (+/ % #)/. u rankOrdinal) {~ ~. i. ]'
 
 NB. =========================================================
-NB.*cile v   x cile values of y
+NB.*cile v  assign values of y to x subsets of nearly equal size
 NB. eg: 3 cile i.12
 cile=: $@] $ ((* <.@:% #@]) /:@/:@,)
 
