@@ -52,6 +52,59 @@ min=: <./
 max=: >./
 midpt=: -:@<:@#
 median=: -:@(+/)@((<. , >.)@midpt { /:~)
+midpts=: midpt : ((%~ i.&.<:)@[ * <:@#@])
+
+NB.*interpolate v  simple linear interpolation for intermediate points
+NB.y is: X,:Y  lists of X and corresponding Y values
+NB.x is: XI    list of points XI to interpolate Y for to return YI
+NB.EG: (1.1 * i.8) interpolate (i.10) ,: (1.1 ^~ i.10)
+NB. developed from http://www.jsoftware.com/pipermail/programming/2021-May/058117.html
+NB. issues with floating point accuracy?
+interpolate_fjrgs =: 4 : 0
+  ai =. (<:{:$y) <. (0{y) I. x
+  p =. (x - (0{y){~ <:ai) % -/"1 (0{y) {~ (,. <:) ai
+  ((,. -.)p) +/@:*"1 (1{y) {~ (,. <:) ai
+)
+Note 'issues with floating point accuracy in interpolate_fjrgs ?'
+  require 'numeric'
+  T=: 3 4 5 6 7 3 4 9 3 2 4 2
+  T_xtiles_res=: 1 1 2 2 2 3 3 3 3 3 4 4 4 4
+  (/:~ T,9 9) Idotr~ (>:@(>./) ,~ }:) 4 nquantiles /:~ T,9 9
+  assert T_xtiles_res -: (/:~ T,9 9) Idotr~ (>:@(>./) ,~ }:) 4 nquantiles /:~ T,9 9
+  (>:@(>./) ,~ }:) 4 nquantiles /:~ T,9 9
+  ((>:@(>./) ,~ }:) 4 nquantiles /:~ T,9 9) - 2 3 4 6.75 10
+  (1e_10 round (>:@(>./) ,~ }:) 4 nquantiles /:~ T,9 9) - 2 3 4 6.75 10
+  (/:~ T,9 9) Idotr~ (1e_10 round >:@(>./) ,~ }:) 4 nquantiles /:~ T,9 9
+  assert T_xtiles_res -: (/:~ T,9 9) Idotr~ (1e_10 round >:@(>./) ,~ }:) 4 nquantiles /:~ T,9 9
+)
+
+NB. http://www.jsoftware.com/pipermail/programming/2008-June/011078.html
+NB. https://code.jsoftware.com/wiki/Phrases/Arith#Interpolation
+interpolate =: 4 : 0
+ix =. 1 >. (<:{:$y) <. (0{y) I. x
+intpoly =. (1 { y) ,. (,~ {.)   %~/ 2 -/\"1 y
+(ix { intpoly) p. ((<0;ix) { y) -~ x
+)
+
+NB.*qpts v  calculates points for quantile computation
+NB. ((k-1)/(n-1) ,: v[k]), for k = 1:n where n = length(v)
+NB. corresponds to Definition 7 of Hyndman and Fan (1996),
+NB. (same as the R, NumPy & Julia default)
+NB.EG: qpts 3 2 4 2 4 2 8 4 5 9 3 2
+qpts=: (i.@# % <:@#) ,: /:~
+
+NB.*quantiles v  returns the value which partitions y into x subsets of nearly equal size
+NB. y is:
+NB. EG: 0.25 0.5 0.75 quantiles 2 4 5 6 7 8 9
+quantiles=: 0 0.25 0.5 0.75 1&$: : (interpolate qpts)
+
+NB.*nquantiles v  returns the values which partition y into x subsets of nearly equal size
+NB. returns 1 less value than the number of subsets
+NB. EG: 4 nquantiles 2 4 5 6 7 8 9
+nquantiles=: 4&$: : ((i.@>: * %)@[ quantiles ])
+
+NB.*xtiles v  m
+xtiles=: ] Idotr~ [: (>:@(>./) ,~ }:) nquantiles
 
 NB.*rankOrdinal a  ordinal ranking ("0 1 2 3") of array y
 NB. tied items are ranked on the order they appear in y
