@@ -63,7 +63,7 @@ h7=. {{ 1 + x * <:@# y }}         NB. alpha=1, beta=1      ; default for R, NumP
 h8=. {{ 1r3 + x * 1r3 + # y }}    NB. alpha=1/3, beta=1/3  ; recommended by Hyndman and Fan (1996)
 h9=. {{ 3r8 + x * 0.25 + # y }}   NB. alpha=3/8, beta=3/8  ; tends to be used for Normal QQ plots
 H=: (h4 f.)`(h5 f.)`(h6 f.)`(h7 f.)`(h8 f.)`(h9 f.)
-QuantileDefault=: 7
+QuantileMethod=: 7
 
 NB.*quantiles v  returns the quantile of y at the specified probabilities x
 NB. y is: numeric values to calculate quantiles for
@@ -74,7 +74,7 @@ quantiles=: {{
   0.25 0.5 0.75 quantiles y
   :
   t=. /:~ y
-  'prob htype'=. 2 {. (boxopen x) ,< QuantileDefault
+  'prob htype'=. 2 {. (boxopen x) ,< QuantileMethod
   'invalid quantile method' assert (3&< *. <&10) htype
   calcH=. (H {~ htype - 4)`:6    NB. define quantile method
   h=. (,prob) <:@calcH t         NB. J is zero-based so subtract 1
@@ -91,7 +91,7 @@ NB. EG: 4 nquantiles 2 4 5 6 7 8 9
 nquantiles=: {{
   4 nquantiles y
 :
-  'nq htype'=. 2 {. (boxopen x) ,< QuantileDefault
+  'nq htype'=. 2 {. (boxopen x) ,< QuantileMethod
   (htype ;~ (}.@i. * %) nq) quantiles y
 }}
 
@@ -100,7 +100,7 @@ NB. EG: 4 ntiles 2 4 5 6 7 8 9
 ntiles=: {{
   4 ntiles y
 :
-  'nq htype'=. 2 {. (boxopen x) ,< QuantileDefault
+  'nq htype'=. 2 {. (boxopen x) ,< QuantileMethod
   (] Idotr~ min , (nq;htype)&nquantiles , >:@max) y
 }}
 
