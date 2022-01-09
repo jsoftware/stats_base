@@ -88,11 +88,21 @@ quantiles=: {{
 NB.*nquantiles v  returns the values which partition y into x quantiles
 NB. returns 1 less value than the number of quantiles specified
 NB. EG: 4 nquantiles 2 4 5 6 7 8 9
-nquantiles=: 4&$: : ((}.@i. * %)@[ quantiles ])
+nquantiles=: {{
+  4 nquantiles y
+:
+  'nq htype'=. 2 {. (boxopen x) ,< QuantileDefault
+  (htype ;~ (}.@i. * %) nq) quantiles y
+}}
 
 NB.*ntiles v  partitions y into x quantiles
 NB. EG: 4 ntiles 2 4 5 6 7 8 9
-ntiles=: ] Idotr~ min@] , nquantiles , >:@max@]
+ntiles=: {{
+  4 ntiles y
+:
+  'nq htype'=. 2 {. (boxopen x) ,< QuantileDefault
+  (] Idotr~ min , (nq;htype)&nquantiles , >:@max) y
+}}
 
 NB.*interpolate v  simple linear interpolation for intermediate points
 NB.y is: X,:Y  lists of X and corresponding Y values
