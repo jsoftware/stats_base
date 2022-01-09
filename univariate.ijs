@@ -56,12 +56,12 @@ midpts=: midpt : ((%~ i.&.<:)@[ * <:@#@])
 
 NB. There are a number of different methods for calculating quantiles
 NB. https://en.wikipedia.org/wiki/Quantile , also Hyndman and Fan (1996)
-h4=. 3 : 'x * # y'               NB. alpha=0, beta=1
-h5=. 3 : '0.5 + x * # y'         NB. alpha=0.5, beta=0.5
-h6=. 3 : 'x * >:@# y'            NB. alpha=0, beta=0
-h7=. 3 : '1 + x * <:@# y'        NB. alpha=1, beta=1      ; default for R, NumPy & Julia
-h8=. 3 : '1r3 + x * 1r3 + # y'   NB. alpha=1/3, beta=1/3  ; recommended by Hyndman and Fan (1996)
-h9=. 3 : '3r8 + x * 0.25 + # y'  NB. alpha=3/8, beta=3/8  ; tends to be used for Normal QQ plots
+h4=. 4 : 'x * # y'               NB. alpha=0, beta=1
+h5=. 4 : '0.5 + x * # y'         NB. alpha=0.5, beta=0.5
+h6=. 4 : 'x * >:@# y'            NB. alpha=0, beta=0
+h7=. 4 : '1 + x * <:@# y'        NB. alpha=1, beta=1      ; default for R, NumPy & Julia
+h8=. 4 : '1r3 + x * 1r3 + # y'   NB. alpha=1/3, beta=1/3  ; recommended by Hyndman and Fan (1996)
+h9=. 4 : '3r8 + x * 0.25 + # y'  NB. alpha=3/8, beta=3/8  ; tends to be used for Normal QQ plots
 H=: (h4 f.)`(h5 f.)`(h6 f.)`(h7 f.)`(h8 f.)`(h9 f.)
 QuantileMethod=: 7
 
