@@ -56,12 +56,12 @@ midpts=: midpt : ((%~ i.&.<:)@[ * <:@#@])
 
 NB. There are a number of different methods for calculating quantiles
 NB. https://en.wikipedia.org/wiki/Quantile , also Hyndman and Fan (1996)
-h4=. {{ x * # y }}                NB. alpha=0, beta=1
-h5=. {{ 0.5 + x * # y }}          NB. alpha=0.5, beta=0.5
-h6=. {{ x * >:@# y }}             NB. alpha=0, beta=0
-h7=. {{ 1 + x * <:@# y }}         NB. alpha=1, beta=1      ; default for R, NumPy & Julia
-h8=. {{ 1r3 + x * 1r3 + # y }}    NB. alpha=1/3, beta=1/3  ; recommended by Hyndman and Fan (1996)
-h9=. {{ 3r8 + x * 0.25 + # y }}   NB. alpha=3/8, beta=3/8  ; tends to be used for Normal QQ plots
+h4=. 3 : 'x * # y'               NB. alpha=0, beta=1
+h5=. 3 : '0.5 + x * # y'         NB. alpha=0.5, beta=0.5
+h6=. 3 : 'x * >:@# y'            NB. alpha=0, beta=0
+h7=. 3 : '1 + x * <:@# y'        NB. alpha=1, beta=1      ; default for R, NumPy & Julia
+h8=. 3 : '1r3 + x * 1r3 + # y'   NB. alpha=1/3, beta=1/3  ; recommended by Hyndman and Fan (1996)
+h9=. 3 : '3r8 + x * 0.25 + # y'  NB. alpha=3/8, beta=3/8  ; tends to be used for Normal QQ plots
 H=: (h4 f.)`(h5 f.)`(h6 f.)`(h7 f.)`(h8 f.)`(h9 f.)
 QuantileMethod=: 7
 
@@ -70,7 +70,7 @@ NB. y is: numeric values to calculate quantiles for
 NB. x is: 0{:: probabilities at which to calculate quantiles (default 0.25 0.5 0.75)
 NB.       1{:: method for calculating quantiles (default 7)
 NB. EG: 0 0.25 0.5 0.75 1 quantiles 2 4 5 6 7 8 9
-quantiles=: {{
+quantiles=: 3 : 0
   0.25 0.5 0.75 quantiles y
   :
   t=. /:~ y
@@ -83,26 +83,26 @@ quantiles=: {{
   prop=. (] - <.) h
   base=. t ({~ <.) h
   base + prop * diff
-}}
+)
 
 NB.*nquantiles v  returns the values which partition y into x quantiles
 NB. returns 1 less value than the number of quantiles specified
 NB. EG: 4 nquantiles 2 4 5 6 7 8 9
-nquantiles=: {{
+nquantiles=: 3 : 0
   4 nquantiles y
 :
   'nq htype'=. 2 {. (boxopen x) ,< QuantileMethod
   (htype ;~ (}.@i. * %) nq) quantiles y
-}}
+)
 
 NB.*ntiles v  partitions y into x quantiles
 NB. EG: 4 ntiles 2 4 5 6 7 8 9
-ntiles=: {{
+ntiles=: 3 : 0
   4 ntiles y
 :
   'nq htype'=. 2 {. (boxopen x) ,< QuantileMethod
   (] Idotr~ min , (nq;htype)&nquantiles , >:@max) y
-}}
+)
 
 NB.*interpolate v  simple linear interpolation for intermediate points
 NB.y is: X,:Y  lists of X and corresponding Y values
