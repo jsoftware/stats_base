@@ -87,7 +87,12 @@ quantiles=: 3 : 0
 
 NB.*nquantiles v  returns the values which partition y into x quantiles
 NB. returns 1 less value than the number of quantiles specified
+NB. y is: numeric values to calculate quantiles for
+NB. x is: 0{:: number of quantiles (default 4)
+NB.       1{:: method for calculating quantiles (default 7)
+NB. EG: nquantiles 2 4 5 6 7 8 9
 NB. EG: 4 nquantiles 2 4 5 6 7 8 9
+NB. EG: (4;7) nquantiles 2 4 5 6 7 8 9
 nquantiles=: 3 : 0
   4 nquantiles y
 :
@@ -96,7 +101,9 @@ nquantiles=: 3 : 0
 )
 
 NB.*ntiles v  partitions y into x quantiles
-NB. EG: 4 ntiles 2 4 5 6 7 8 9
+NB. x is: 0{:: number of quantiles (default 4)
+NB.       1{:: method for calculating quantiles (default 7)
+NB. EG: 2 ntiles 2 4 5 6 7 8 9
 ntiles=: 3 : 0
   4 ntiles y
 :
