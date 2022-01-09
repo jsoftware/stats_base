@@ -62,7 +62,7 @@ h6=. 4 : 'x * >:@# y'            NB. alpha=0, beta=0
 h7=. 4 : '1 + x * <:@# y'        NB. alpha=1, beta=1      ; default for R, NumPy & Julia
 h8=. 4 : '1r3 + x * 1r3 + # y'   NB. alpha=1/3, beta=1/3  ; recommended by Hyndman and Fan (1996)
 h9=. 4 : '3r8 + x * 0.25 + # y'  NB. alpha=3/8, beta=3/8  ; tends to be used for Normal QQ plots
-H=: (h4 f.)`(h5 f.)`(h6 f.)`(h7 f.)`(h8 f.)`(h9 f.)
+Qh=: (h4 f.)`(h5 f.)`(h6 f.)`(h7 f.)`(h8 f.)`(h9 f.)
 QuantileMethod=: 7
 
 NB.*quantiles v  returns the quantile of y at the specified probabilities x
@@ -76,9 +76,9 @@ quantiles=: 3 : 0
   t=. /:~ y
   'prob htype'=. 2 {. (boxopen x) ,< QuantileMethod
   'invalid quantile method' assert (3&< *. <&10) htype
-  calcH=. (H {~ htype - 4)`:6    NB. define quantile method
-  h=. (,prob) <:@calcH t         NB. J is zero-based so subtract 1
-  h=. 0 >. (<:@#t) <. h          NB. constrain h between 0 & n-1
+  qh=. (Qh {~ htype - 4)`:6    NB. define quantile method
+  h=. (,prob) <:@qh t          NB. J is zero-based so subtract 1
+  h=. 0 >. (<:@#t) <. h        NB. constrain h between 0 & n-1
   diff=. t -/@({~ >. ,: <.) h
   prop=. (] - <.) h
   base=. t ({~ <.) h
