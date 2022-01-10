@@ -20,9 +20,14 @@ NB.*max v          maximum
 NB.*midpt v        index of midpoint
 NB.*median v       median
 NB.
-NB. cile v         x cile values of y
+NB. quantiles v    quantiles of y at the specified probabilities x
+NB. nquantiles v   values which partition y into x quantiles
+NB. ntiles v       assign values of y to x quantiles
+NB. cile v         assign values of y to x subsets of nearly equal size
+NB.
 NB. dstat v        descriptive statistics
 NB. freqcount v    frequency count
+NB. Idotr v        equivalent to I. but intervals closed on left, open on right
 NB. histogram v    histogram
 NB. binnedData a   applies u to binned data y as specified by intervals x
 
@@ -55,15 +60,16 @@ median=: -:@(+/)@((<. , >.)@midpt { /:~)
 
 NB. There are a number of different methods for calculating quantiles
 NB. https://en.wikipedia.org/wiki/Quantile , also Hyndman and Fan (1996)
-h4=. 4 : 'x * # y'               NB. alpha=0, beta=1
-h5=. 4 : '0.5 + x * # y'         NB. alpha=0.5, beta=0.5
-h6=. 4 : 'x * >:@# y'            NB. alpha=0, beta=0
-h7=. 4 : '1 + x * <:@# y'        NB. alpha=1, beta=1      ; default for R, NumPy & Julia
-h8=. 4 : '1r3 + x * 1r3 + # y'   NB. alpha=1/3, beta=1/3  ; recommended by Hyndman and Fan (1996)
-h9=. 4 : '3r8 + x * 0.25 + # y'  NB. alpha=3/8, beta=3/8  ; tends to be used for Normal QQ plots
-Qh=: (h4 f.)`(h5 f.)`(h6 f.)`(h7 f.)`(h8 f.)`(h9 f.)
-QuantileMethod=: 7
+qh4=. 4 : 'x * # y'               NB. alpha=0, beta=1
+qh5=. 4 : '0.5 + x * # y'         NB. alpha=0.5, beta=0.5
+qh6=. 4 : 'x * >:@# y'            NB. alpha=0, beta=0
+qh7=. 4 : '1 + x * <:@# y'        NB. alpha=1, beta=1      ; default for R, NumPy & Julia
+qh8=. 4 : '1r3 + x * 1r3 + # y'   NB. alpha=1/3, beta=1/3  ; recommended by Hyndman and Fan (1996)
+qh9=. 4 : '3r8 + x * 0.25 + # y'  NB. alpha=3/8, beta=3/8  ; tends to be used for Normal QQ plots
+Qh=: (qh4 f.)`(qh5 f.)`(qh6 f.)`(qh7 f.)`(qh8 f.)`(qh9 f.)
+QuantileMethod=: 7               NB. default quantile method to use
 
+NB. =========================================================
 NB.*quantiles v  returns the quantile of y at the specified probabilities x
 NB. y is: numeric values to calculate quantiles for
 NB. x is: 0{:: probabilities at which to calculate quantiles (default 0.25 0.5 0.75)
@@ -71,7 +77,7 @@ NB.       1{:: method for calculating quantiles (default 7)
 NB. EG: 0 0.25 0.5 0.75 1 quantiles 2 4 5 6 7 8 9
 quantiles=: 3 : 0
   0.25 0.5 0.75 quantiles y
-  :
+:
   t=. /:~ y
   'prob htype'=. 2 {. (boxopen x) ,< QuantileMethod
   'invalid quantile method' assert (3&< *. <&10) htype
@@ -84,6 +90,7 @@ quantiles=: 3 : 0
   base + prop * diff
 )
 
+NB. =========================================================
 NB.*nquantiles v  returns the values which partition y into x quantiles
 NB. returns 1 less value than the number of quantiles specified
 NB. y is: numeric values to calculate quantiles for
@@ -99,7 +106,8 @@ nquantiles=: 3 : 0
   (htype ;~ (}.@i. * %) nq) quantiles y
 )
 
-NB.*ntiles v  partitions y into x quantiles
+NB. =========================================================
+NB.*ntiles v  assign values of y to x quantiles
 NB. x is: 0{:: number of quantiles (default 4)
 NB.       1{:: method for calculating quantiles (default 7)
 NB. EG: 2 ntiles 2 4 5 6 7 8 9
@@ -110,16 +118,21 @@ ntiles=: 3 : 0
   (] Idotr~ min , (nq;htype)&nquantiles , >:@max) y
 )
 
+NB. =========================================================
+NB.*cile v  assign values of y to x subsets of nearly equal size
+NB. eg: 3 cile i.12
+cile=: $@] $ ((* <.@:% #@]) /:@/:@,)
+
 NB.*interpolate v  simple linear interpolation for intermediate points
 NB.y is: X,:Y  lists of X and corresponding Y values
 NB.x is: XI    list of points XI to interpolate Y for, to return YI
 NB.EG: (1.1 * i.8) interpolate (i.10) ,: (1.1 ^~ i.10)
 NB. http://www.jsoftware.com/pipermail/programming/2008-June/011078.html
 NB. https://code.jsoftware.com/wiki/Phrases/Arith#Interpolation
-interpolate =: 4 : 0
-ix =. 1 >. (<:{:$y) <. (0{y) I. x
-intpoly =. (1 { y) ,. (,~ {.)   %~/ 2 -/\"1 y
-(ix { intpoly) p. ((<0;ix) { y) -~ x
+interpolate=: 4 : 0
+  ix =. 1 >. (<:{:$y) <. (0{y) I. x
+  intpoly =. (1 { y) ,. (,~ {.)   %~/ 2 -/\"1 y
+  (ix { intpoly) p. ((<0;ix) { y) -~ x
 )
 
 NB.*rankOrdinal a  ordinal ranking ("0 1 2 3") of array y
@@ -145,11 +158,6 @@ NB. eg: \: rankFractional 5 2 5 0 6 2 4  NB. rank descending
 rankFractional=: 1 : '(] (+/ % #)/. u rankOrdinal) {~ ~. i. ]'
 
 NB. =========================================================
-NB.*cile v  assign values of y to x subsets of nearly equal size
-NB. eg: 3 cile i.12
-cile=: $@] $ ((* <.@:% #@]) /:@/:@,)
-
-NB. =========================================================
 NB.*dstat v  descriptive statistics
 NB. table of formatted descriptive statistics
 dstat=: 3 : 0
@@ -165,11 +173,13 @@ NB.*freqcount v  frequency count
 NB. (value, frequency) sorted by decreasing frequency
 freqcount=: (\: {:"1)@(~. ,. #/.~)
 
+NB. =========================================================
 NB.*Idotr v  Equivalent to I. but intervals are closed on the left and open on the right
 NB. Idotr : (0{x) <= y < (1{x)
 NB.    I. : (0{x) < y <= (1{x)
 Idotr=: |.@[ (#@[ - I.) ]
 
+NB. =========================================================
 NB.*histogram v  tally of the items in each bin
 NB. x is a list of interval start/end points. The number of intervals is 1+#x
 NB. y is an array of data
