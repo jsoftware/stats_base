@@ -1,5 +1,9 @@
 stats/base - change history
 
+== 1.0.21 ==
+* add: Add quantiles
+* add: Add interpolate
+
 == 1.0.19 ==
 * add: Add weighted versions of mean, dev, stddev, var
 
