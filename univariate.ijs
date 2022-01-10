@@ -113,18 +113,6 @@ NB.*cile v  assign values of y to x subsets of nearly equal size
 NB. eg: 3 cile i.12
 cile=: $@] $ ((* <.@:% #@]) /:@/:@,)
 
-NB.*interpolate v  simple linear interpolation for intermediate points
-NB.y is: X,:Y  lists of X and corresponding Y values
-NB.x is: XI    list of points XI to interpolate Y for, to return YI
-NB.EG: (1.1 * i.8) interpolate (i.10) ,: (1.1 ^~ i.10)
-NB. http://www.jsoftware.com/pipermail/programming/2008-June/011078.html
-NB. https://code.jsoftware.com/wiki/Phrases/Arith#Interpolation
-interpolate=: 4 : 0
-  ix =. 1 >. (<:{:$y) <. (0{y) I. x
-  intpoly =. (1 { y) ,. (,~ {.)   %~/ 2 -/\"1 y
-  (ix { intpoly) p. ((<0;ix) { y) -~ x
-)
-
 NB.*rankOrdinal a  ordinal ranking ("0 1 2 3") of array y
 NB. tied items are ranked on the order they appear in y
 NB. eg: /: rankOrdinal 5 2 5 0 6 2 4  NB. rank ascending
