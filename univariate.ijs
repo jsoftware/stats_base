@@ -149,7 +149,7 @@ t,. ": ,. v y
 NB. =========================================================
 NB.*freqcount v  frequency count
 NB. (value, frequency) sorted by decreasing frequency
-freqcount=: (\: {:"1)@(~. ,. #/.~)
+freqcount=: (\: {:"1)@(({. , #)/.~)
 
 NB. =========================================================
 NB.*Idotr v  Equivalent to I. but intervals are closed on the left and open on the right
