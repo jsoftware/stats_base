@@ -95,32 +95,18 @@ NB. =========================================================
 NB.*nquantiles v  returns the values which partition y into x quantiles
 NB. returns 1 less value than the number of quantiles specified
 NB. y is: numeric values to calculate quantiles for
-NB. x is: 0{:: number of quantiles (default 4)
-NB.       1{:: method for calculating quantiles (default 7)
-NB. EG: nquantiles 2 4 5 6 7 8 9
+NB. x is: number of quantiles (default 4)
 NB. EG: 4 nquantiles 2 4 5 6 7 8 9
-NB. EG: (4;7) nquantiles 2 4 5 6 7 8 9
-nquantiles=: 3 : 0
-  4 nquantiles y
-:
-  'nq htype'=. 2 {. (boxopen x) ,< QuantileMethod
-  (htype ;~ (}.@i. * %) nq) quantiles y
-)
+nquantiles=: 4&$: : ((}.@i. * %)@[ quantiles ])
 
 NB.*iqr v  calculates the interquartile range (IQR) of y
 iqr=: -/@(0.75 0.25 quantiles ])
 
 NB. =========================================================
 NB.*ntiles v  assign values of y to x quantiles
-NB. x is: 0{:: number of quantiles (default 4)
-NB.       1{:: method for calculating quantiles (default 7)
+NB. x is: number of quantiles (default 4)
 NB. EG: 2 ntiles 2 4 5 6 7 8 9
-ntiles=: 3 : 0
-  4 ntiles y
-:
-  'nq htype'=. 2 {. (boxopen x) ,< QuantileMethod
-  (] Idotr~ min , (nq;htype)&nquantiles , >:@max) y
-)
+ntiles=: 4&$: : (] Idotr~ min@] , nquantiles , >:@max@])
 
 NB. =========================================================
 NB.*cile v  assign values of y to x subsets of nearly equal size
