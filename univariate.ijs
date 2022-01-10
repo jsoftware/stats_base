@@ -22,6 +22,7 @@ NB.*median v       median
 NB.
 NB. quantiles v    quantiles of y at the specified probabilities x
 NB. nquantiles v   values which partition y into x quantiles
+NB. iqr v          interquartile range (IQR) of y
 NB. ntiles v       assign values of y to x quantiles
 NB. cile v         assign values of y to x subsets of nearly equal size
 NB.
@@ -105,6 +106,9 @@ nquantiles=: 3 : 0
   'nq htype'=. 2 {. (boxopen x) ,< QuantileMethod
   (htype ;~ (}.@i. * %) nq) quantiles y
 )
+
+NB.*iqr v  calculates the interquartile range (IQR) of y
+iqr=: -/@(0.75 0.25 quantiles ])
 
 NB. =========================================================
 NB.*ntiles v  assign values of y to x quantiles
