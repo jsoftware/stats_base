@@ -52,7 +52,6 @@ min=: <./
 max=: >./
 midpt=: -:@<:@#
 median=: -:@(+/)@((<. , >.)@midpt { /:~)
-midpts=: midpt : ((%~ i.&.<:)@[ * <:@#@])
 
 NB. There are a number of different methods for calculating quantiles
 NB. https://en.wikipedia.org/wiki/Quantile , also Hyndman and Fan (1996)
