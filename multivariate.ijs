@@ -51,6 +51,18 @@ NB. form: [x] rankcorr y
 NB. Arguments as per corr, but returns rank correlations or rank correlation matrix
 rankcorr=: corr&(/: rankFractional"_1&.|:)
 
+NB.*interpolate v  simple linear interpolation for intermediate points
+NB.y is: X,:Y  lists of X and corresponding Y values
+NB.x is: XI    list of points XI to interpolate Y for, to return YI
+NB.EG: (1.1 * i.8) interpolate (i.10) ,: (1.1 ^~ i.10)
+NB. http://www.jsoftware.com/pipermail/programming/2008-June/011078.html
+NB. https://code.jsoftware.com/wiki/Phrases/Arith#Interpolation
+interpolate=: 4 : 0
+  ix =. 1 >. (<:{:$y) <. (0{y) I. x
+  intpoly =. (1 { y) ,. (,~ {.)   %~/ 2 -/\"1 y
+  (ix { intpoly) p. ((<0;ix) { y) -~ x
+)
+
 NB. =========================================================
 NB.*lsfit v least-squares fit
 NB. form: n lsfit xy
